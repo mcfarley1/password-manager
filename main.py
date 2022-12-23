@@ -57,11 +57,8 @@ def search_website():
         except FileNotFoundError:
             messagebox.showinfo(title="Oops!", message="There are no entries yet.")
         else:
-            try:
+            if website_upper in data:
                 username = data[website_upper]["username"]
-            except KeyError:
-                messagebox.showinfo(title="Oops!", message=f"{website} not found.")
-            else:
                 password = data[website_upper]["password"]
                 search_window = Toplevel(window)
                 search_window.title(website_upper)
@@ -83,6 +80,8 @@ def search_website():
                 update_button.grid(column=1, row=2)
                 new_pass_button = Button(search_window, text="New Password", width=14, command=generate_password2)
                 new_pass_button.grid(column=2, row=2, sticky="w")
+            else:
+                messagebox.showinfo(title="Oops!", message=f"{website} not found.")
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
@@ -175,6 +174,7 @@ search_button = Button(text="Search", width=14, command=search_website)
 search_button.grid(column=2, row=1, sticky="w")
 
 username_entry = Entry(width=51)
+username_entry.insert(0, string="megan.farley@ymail.com")
 username_entry.grid(column=1, row=2, columnspan=2, sticky="w")
 password_entry = Entry(width=32)
 password_entry.grid(column=1, row=3, sticky="w")
